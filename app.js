@@ -45,19 +45,43 @@ app.post('/api/courses', (req,res) => {
         name: req.body.name
     };
     courses.push(course);
-    res.send({
+    res.status(200).send({
         status: 'Successful',
         data: course
     });
 });
 
 
-// app.put();
+app.put('/api/courses/:id', (req, res) => {
+    // look up the course, if does not exist, return status 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+            res.status(404).send({
+            status: 'Failed',
+            message: 'The course with given ID was not found'
+        })
+        return;
+    }
+
+    // validate the course body, if invalid, return status 400
+    if (!req.body.name || req.body.name.length < 3) {
+        res.status(400).send({
+            status: 'Failed',
+            message: 'Course name is required and should be a minimum of 3 characters'
+        });
+        return;
+    }
+    
+    // update the course
+    course.name = req.body.name;
+    // return upated course
+    res.status(200).send({
+        status: 'Successful',
+        data: course
+    });
+    
+});
+
 // app.delete();
 
-
-// app is only one exported. No need to export as an object as below
-// module.exports.app = app;
-
-// instead export as single function
 module.exports = app;
