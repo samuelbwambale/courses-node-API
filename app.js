@@ -22,10 +22,12 @@ app.get('/api/courses', (req, res) => {
 
 app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send({
-        status: 'Failed',
-        message: 'The course with given ID was not found'
-    })
+    if (!course) {res.status(404).send({
+            status: 'Failed',
+            message: 'The course with given ID was not found'
+        })
+        return;
+    }
     res.status(200).send({
         status: 'Successful',
         data: course
@@ -82,6 +84,23 @@ app.put('/api/courses/:id', (req, res) => {
     
 });
 
-// app.delete();
+app.delete('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+            res.status(404).send({
+            status: 'Failed',
+            message: 'The course with given ID was not found'
+        })
+        return;
+    }
+
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+    res.status(200).send({
+        status: 'Successful',
+        message: `${course.name} has been deleted`
+    });
+
+});
 
 module.exports = app;
