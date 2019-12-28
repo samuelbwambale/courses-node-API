@@ -10,7 +10,7 @@ const courses = [
     {id: 3, name: 'Ruby on Rails Framework'}
 ]
 app.get('/', (req, res) => {
-    res.send('Helloworld!')
+    res.send('Courses Node API')
 });
 
 app.get('/api/courses', (req, res) => {
