@@ -1,5 +1,10 @@
 # Node-ExpressJS API for managing college courses
 
-Start the server by running node_modules/.bin/babel-node server.js
+Start the server by typing *node app.js* in the terminal
 
-In postman, perform CREATE, READ, UPDATE and DELETE operations
+In postman,
+GET ALL COURSES *api/courses*
+GET A COURSE */api/courses/:id*
+CREATE *api/courses*
+UPDATE */api/courses/:id*
+DELETE */api/courses/:id*
